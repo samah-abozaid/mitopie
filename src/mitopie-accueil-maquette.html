@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Mitopie · Page Accueil</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MAQUETTE WRAPPER
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #F0F4F0;
+  font-family: 'DM Sans', sans-serif;
+  padding: 32px 24px;
+  min-height: 100vh;
+}
+
+.page-label {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.page-label h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #1B5E20;
+  font-weight: 600;
+}
+.page-label p {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+.page-label .badge {
+  display: inline-block;
+  background: #4CAF50;
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* ============================================================
+   FRAMES LAYOUT
+   ============================================================ */
+.frames {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.frame-block { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.frame-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Desktop frame */
+.desktop-frame {
+  width: 860px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  border: 1px solid #ddd;
+}
+.desktop-bar {
+  background: #ECECEC;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.dots { display: flex; gap: 5px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #FF5F57; }
+.dot.y { background: #FFBD2E; }
+.dot.g { background: #28C840; }
+.url-bar {
+  flex: 1;
+  background: #fff;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #888;
+  border: 1px solid #ddd;
+}
+
+/* Mobile frame */
+.mobile-frame {
+  width: 320px;
+  background: #fff;
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+  border: 8px solid #222;
+  position: relative;
+}
+.mobile-notch {
+  background: #222;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notch-pill {
+  width: 80px; height: 10px;
+  background: #111;
+  border-radius: 6px;
+}
+
+/* ============================================================
+   SITE — SHARED DESIGN TOKENS
+   ============================================================ */
+:root {
+  --g1: #1B5E20;
+  --g2: #2E7D32;
+  --g3: #388E3C;
+  --g4: #4CAF50;
+  --g5: #76FF03;
+  --g-light: #E8F5E9;
+  --g-pale:  #F1F8E9;
+  --text:    #1a2a1a;
+  --muted:   #5A7A5A;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.s-nav {
+  background: var(--g1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+}
+.s-nav.mobile { padding: 12px 18px; }
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.nav-logo-icon {
+  width: 32px; height: 32px;
+  background: var(--g5);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-icon svg { width: 18px; height: 18px; }
+.nav-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+}
+.nav-logo-sub {
+  font-size: 10px;
+  color: #A5D6A7;
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  color: #A5D6A7;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: #fff; }
+.nav-links a.active { font-weight: 500; }
+
+.nav-cta {
+  background: var(--g5);
+  color: var(--g1) !important;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+}
+
+.nav-burger {
+  width: 28px; height: 20px;
+  display: flex; flex-direction: column;
+  justify-content: space-between; cursor: pointer;
+}
+.burger-line {
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+.burger-line.short { width: 60%; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.s-hero {
+  background: var(--g2);
+  padding: 56px 32px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.s-hero.mobile { padding: 32px 20px 28px; }
+
+.hero-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+.hero-inner.mobile { flex-direction: column; text-align: center; }
+
+.hero-left { max-width: 520px; }
+.hero-inner.mobile .hero-left { max-width: 100%; }
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #C8E6C9;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  font-weight: 400;
+}
+.hero-tag span { width: 6px; height: 6px; background: var(--g5); border-radius: 50%; display: inline-block; }
+
+.hero-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  line-height: 1.15;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.hero-inner.mobile .hero-h1 { font-size: 28px; }
+
+.hero-h1 em {
+  color: var(--g5);
+  font-style: normal;
+}
+
+.hero-p {
+  color: #A5D6A7;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  font-weight: 300;
+}
+.hero-inner.mobile .hero-p { font-size: 13px; margin-bottom: 20px; }
+
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-inner.mobile .hero-btns { justify-content: center; }
+
+.btn-primary {
+  background: var(--g5);
+  color: var(--g1);
+  padding: 12px 24px;
+  border-radius: 28px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-outline {
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 28px;
+  font-size: 13px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.hero-right {
+  flex-shrink: 0;
+}
+.hero-card {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 20px;
+  width: 200px;
+  backdrop-filter: blur(4px);
+}
+.hero-card-icon { font-size: 36px; margin-bottom: 10px; }
+.hero-card-label { font-size: 11px; color: #A5D6A7; margin-bottom: 4px; }
+.hero-card-value { font-size: 22px; font-weight: 500; color: #fff; font-family: 'Playfair Display', serif; }
+.hero-card-note { font-size: 10px; color: #81C784; margin-top: 4px; }
+
+.hero-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+.hero-inner.mobile .hero-stats { justify-content: center; gap: 16px; }
+.stat-item { text-align: left; }
+.hero-inner.mobile .stat-item { text-align: center; }
+.stat-num { font-size: 20px; font-weight: 500; color: #fff; font-family: 'Playfair Display', serif; }
+.stat-label { font-size: 10px; color: #81C784; margin-top: 2px; }
+
+/* ============================================================
+   CATEGORIES
+   ============================================================ */
+.s-cats {
+  padding: 40px 32px;
+  background: #fff;
+}
+.s-cats.mobile { padding: 24px 18px; }
+
+.section-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 24px;
+}
+.section-eyebrow {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--g4); font-weight: 500; margin-bottom: 4px;
+}
+.section-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; color: var(--text); font-weight: 600;
+}
+.s-cats.mobile .section-h2 { font-size: 20px; }
+.see-all { font-size: 12px; color: var(--g4); text-decoration: none; font-weight: 500; }
+
+.cats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.s-cats.mobile .cats-grid { gap: 10px; }
+
+.cat-card {
+  border: 1px solid #E8F5E9;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  text-decoration: none;
+}
+.cat-card:hover { box-shadow: 0 4px 20px rgba(76,175,80,0.15); }
+
+.cat-top {
+  padding: 28px 20px 20px;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.s-cats.mobile .cat-top { padding: 18px 14px 14px; }
+
+.cat-emoji { font-size: 36px; margin-bottom: 10px; }
+.s-cats.mobile .cat-emoji { font-size: 28px; margin-bottom: 8px; }
+
+.cat-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; color: var(--text); font-weight: 600;
+}
+.s-cats.mobile .cat-name { font-size: 14px; }
+.cat-count { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.cat-bottom {
+  padding: 10px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.s-cats.mobile .cat-bottom { padding: 8px 14px; }
+.cat-badge {
+  font-size: 10px; font-weight: 500;
+  padding: 3px 8px; border-radius: 10px;
+}
+
+.cat-legume  .cat-top    { background: #F1F8E9; }
+.cat-legume  .cat-bottom { background: #E8F5E9; }
+.cat-legume  .cat-badge  { background: #C8E6C9; color: #1B5E20; }
+
+.cat-poule   .cat-top    { background: #FFFDE7; }
+.cat-poule   .cat-bottom { background: #FFF9C4; }
+.cat-poule   .cat-badge  { background: #FFF176; color: #F57F17; }
+
+.cat-agneau  .cat-top    { background: #FCE4EC; }
+.cat-agneau  .cat-bottom { background: #F8BBD0; }
+.cat-agneau  .cat-badge  { background: #F48FB1; color: #880E4F; }
+
+.cat-arrow { font-size: 14px; color: var(--muted); }
+
+/* ============================================================
+   PRODUITS EN VEDETTE
+   ============================================================ */
+.s-products {
+  padding: 40px 32px;
+  background: var(--g-pale);
+}
+.s-products.mobile { padding: 24px 18px; }
+
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 24px;
+}
+.s-products.mobile .prod-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.prod-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #E0EDE0;
+}
+.prod-img {
+  height: 100px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 44px;
+  position: relative;
+}
+.s-products.mobile .prod-img { height: 72px; font-size: 34px; }
+
+.prod-img.l { background: #E8F5E9; }
+.prod-img.p { background: #FFF8E1; }
+.prod-img.a { background: #FCE4EC; }
+
+.prod-saison-tag {
+  position: absolute; top: 8px; right: 8px;
+  font-size: 9px; font-weight: 500;
+  background: rgba(255,255,255,0.9);
+  color: var(--g2);
+  padding: 2px 7px;
+  border-radius: 8px;
+}
+
+.prod-body { padding: 12px; }
+.s-products.mobile .prod-body { padding: 10px; }
+
+.prod-name {
+  font-weight: 500; font-size: 13px;
+  color: var(--text); margin-bottom: 2px;
+}
+.s-products.mobile .prod-name { font-size: 12px; }
+.prod-sub { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.s-products.mobile .prod-sub { font-size: 10px; }
+
+.prod-footer { display: flex; align-items: center; justify-content: space-between; }
+.prod-price { font-size: 14px; font-weight: 500; color: var(--g2); }
+.s-products.mobile .prod-price { font-size: 12px; }
+.prod-btn {
+  width: 26px; height: 26px;
+  background: var(--g4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 16px; line-height: 1;
+}
+
+/* ============================================================
+   ABOUT STRIP
+   ============================================================ */
+.s-about {
+  padding: 40px 32px;
+  background: var(--g1);
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.s-about.mobile { flex-direction: column; text-align: center; padding: 28px 20px; gap: 20px; }
+
+.about-avatar-wrap { flex-shrink: 0; }
+.about-avatar {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: var(--g3);
+  border: 3px solid var(--g5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; color: #fff;
+  font-family: 'Playfair Display', serif;
+}
+.s-about.mobile .about-avatar { width: 70px; height: 70px; font-size: 28px; }
+
+.about-content { flex: 1; }
+.about-eyebrow {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--g5); margin-bottom: 6px; font-weight: 500;
+}
+.about-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; color: #fff; margin-bottom: 8px;
+}
+.s-about.mobile .about-name { font-size: 18px; }
+.about-p { font-size: 13px; color: #A5D6A7; line-height: 1.7; font-weight: 300; }
+.about-btn {
+  display: inline-block;
+  margin-top: 16px;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 9px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+/* ============================================================
+   INFOS PRATIQUES
+   ============================================================ */
+.s-info {
+  padding: 36px 32px;
+  background: #fff;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.s-info.mobile {
+  grid-template-columns: 1fr;
+  padding: 24px 18px;
+  gap: 14px;
+}
+
+.info-card {
+  border: 1px solid #E8F5E9;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.s-info.mobile .info-card { padding: 16px; }
+
+.info-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--g-light);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.info-title { font-weight: 500; font-size: 13px; color: var(--text); margin-bottom: 4px; }
+.info-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.info-link { font-size: 11px; color: var(--g4); margin-top: 4px; display: block; text-decoration: none; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.s-footer {
+  background: #111E11;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.s-footer.mobile { padding: 20px 18px; flex-direction: column; text-align: center; gap: 8px; }
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; color: #fff; font-weight: 600;
+}
+.footer-sub { font-size: 11px; color: #4CAF50; margin-top: 2px; }
+
+.footer-links { display: flex; gap: 18px; }
+.footer-links a { font-size: 11px; color: #4CAF50; text-decoration: none; }
+.footer-copy { font-size: 10px; color: #333; }
+</style>
+</head>
+<body>
+
+<div class="page-label">
+  <h1>Mitopie — Page Accueil</h1>
+  <p>Maquette de validation · Ferme Mitopie, Brecé (53)</p>
+  <span class="badge">🌿 Couleur : Vert flash</span>
+</div>
+
+<div class="frames">
+
+  <!-- ===================== DESKTOP ===================== -->
+  <div class="frame-block">
+    <span class="frame-title">🖥 Desktop</span>
+    <div class="desktop-frame">
+      <div class="desktop-bar">
+        <div class="dots">
+          <div class="dot r"></div>
+          <div class="dot y"></div>
+          <div class="dot g"></div>
+        </div>
+        <div class="url-bar">🔒 www.mitopie.fr</div>
+      </div>
+
+      <!-- NAVBAR -->
+      <nav class="s-nav">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1B5E20" stroke-width="2.5">
+              <path d="M12 2C6 2 2 8 2 12s4 10 10 10 10-4 10-10S18 2 12 2z"/>
+              <path d="M12 2c0 0-4 4-4 10s4 10 4 10"/>
+              <path d="M2 12h20"/>
+            </svg>
+          </div>
+          <div>
+            <span class="nav-logo-text">Mitopie</span>
+            <span class="nav-logo-sub">Ferme bio · Brecé</span>
+          </div>
+        </a>
+        <div class="nav-links">
+          <a href="#" class="active">Accueil</a>
+          <a href="#">Produits</a>
+          <a href="#">Notre histoire</a>
+          <a href="#">Nous trouver</a>
+          <a href="#" class="nav-cta">Commander sur Locavor →</a>
+        </div>
+      </nav>
+
+      <!-- HERO -->
+      <section class="s-hero">
+        <div class="hero-bg-circle" style="width:400px;height:400px;top:-150px;right:-100px;"></div>
+        <div class="hero-bg-circle" style="width:200px;height:200px;bottom:-80px;left:40px;"></div>
+        <div class="hero-inner">
+          <div class="hero-left">
+            <div class="hero-tag"><span></span> Agriculture biologique · Brecé, Mayenne</div>
+            <h1 class="hero-h1">La nature dans<br>votre <em>assiette</em></h1>
+            <p class="hero-p">Légumes de saison, œufs colorés et agneaux élevés avec passion.<br>Vente directe à la ferme et sur les marchés locaux.</p>
+            <div class="hero-btns">
+              <a href="#" class="btn-primary">🛒 Voir nos produits</a>
+              <a href="#" class="btn-outline">Notre histoire</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat-item">
+                <div class="stat-num">2020</div>
+                <div class="stat-label">Année de création</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">3</div>
+                <div class="stat-label">Gammes de produits</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">Bio</div>
+                <div class="stat-label">Agriculture certifiée</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="hero-card-icon">🥚</div>
+              <div class="hero-card-label">Disponible cette semaine</div>
+              <div class="hero-card-value">Œufs colorés</div>
+              <div class="hero-card-note">Poules de races élevées en plein air</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORIES -->
+      <section class="s-cats">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Ce que nous produisons</p>
+            <h2 class="section-h2">Nos catégories</h2>
+          </div>
+          <a href="#" class="see-all">Voir tout →</a>
+        </div>
+        <div class="cats-grid">
+          <a href="#" class="cat-card cat-legume">
+            <div class="cat-top">
+              <div class="cat-emoji">🥕</div>
+              <div class="cat-name">Légumes</div>
+              <div class="cat-count">Carottes, salades, courgettes, tomates…</div>
+            </div>
+            <div class="cat-bottom">
+              <span class="cat-badge">Saison en cours</span>
+              <span class="cat-arrow">→</span>
+            </div>
+          </a>
+          <a href="#" class="cat-card cat-poule">
+            <div class="cat-top">
+              <div class="cat-emoji">🐔</div>
+              <div class="cat-name">Poules & Œufs</div>
+              <div class="cat-count">Œufs colorés, poules de races…</div>
+            </div>
+            <div class="cat-bottom">
+              <span class="cat-badge">Disponible</span>
+              <span class="cat-arrow">→</span>
+            </div>
+          </a>
+          <a href="#" class="cat-card cat-agneau">
+            <div class="cat-top">
+              <div class="cat-emoji">🐑</div>
+              <div class="cat-name">Animaux</div>
+              <div class="cat-count">Agneaux en caissette, saucisses, merguez…</div>
+            </div>
+            <div class="cat-bottom">
+              <span class="cat-badge">Sur commande</span>
+              <span class="cat-arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- PRODUITS EN VEDETTE -->
+      <section class="s-products">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">À la une</p>
+            <h2 class="section-h2">Produits du moment</h2>
+          </div>
+          <a href="#" class="see-all">Tous les produits →</a>
+        </div>
+        <div class="prod-grid">
+          <div class="prod-card">
+            <div class="prod-img l">🥬<span class="prod-saison-tag">Été</span></div>
+            <div class="prod-body">
+              <div class="prod-name">Salade verte</div>
+              <div class="prod-sub">Légumes · Bio</div>
+              <div class="prod-footer">
+                <span class="prod-price">1,50 €</span>
+                <div class="prod-btn">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img p">🥚<span class="prod-saison-tag">Toute saison</span></div>
+            <div class="prod-body">
+              <div class="prod-name">Œufs colorés</div>
+              <div class="prod-sub">Poules & Œufs · x6</div>
+              <div class="prod-footer">
+                <span class="prod-price">3,50 €</span>
+                <div class="prod-btn">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img a">🐑<span class="prod-saison-tag">Printemps</span></div>
+            <div class="prod-body">
+              <div class="prod-name">Agneau caissette</div>
+              <div class="prod-sub">Animaux · ~8 kg</div>
+              <div class="prod-footer">
+                <span class="prod-price">18 €/kg</span>
+                <div class="prod-btn">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img l">🍅<span class="prod-saison-tag">Été</span></div>
+            <div class="prod-body">
+              <div class="prod-name">Tomates variées</div>
+              <div class="prod-sub">Légumes · Bio</div>
+              <div class="prod-footer">
+                <span class="prod-price">2,80 €/kg</span>
+                <div class="prod-btn">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="s-about">
+        <div class="about-avatar-wrap">
+          <div class="about-avatar">A</div>
+        </div>
+        <div class="about-content">
+          <p class="about-eyebrow">La paysanne derrière Mitopie</p>
+          <h2 class="about-name">Aurore Mengual</h2>
+          <p class="about-p">Passionnée de jardinage et d'animaux depuis toujours, Aurore a créé Mitopie en 2020 au Moulin de Favières à Brecé. Elle cultive légumes et élève ses animaux avec soin, dans le respect de la nature et du bien-être animal.</p>
+          <a href="#" class="about-btn">Lire son histoire →</a>
+        </div>
+      </section>
+
+      <!-- INFOS PRATIQUES -->
+      <section class="s-info">
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-title">À la ferme</div>
+            <div class="info-text">Le Moulin de Favières<br>53120 Brecé<br>Sam. 11h–12h30</div>
+            <a href="#" class="info-link">Voir sur la carte →</a>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🛒</div>
+          <div>
+            <div class="info-title">Marché de Gorron</div>
+            <div class="info-text">Tous les mercredis<br>de 8h30 à 12h30</div>
+            <a href="#" class="info-link">En savoir plus →</a>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📦</div>
+          <div>
+            <div class="info-title">Paniers Locavor</div>
+            <div class="info-text">Commande du vendredi<br>au mercredi minuit.<br>Retrait vendredi 18h30–19h30</div>
+            <a href="#" class="info-link">Commander sur Locavor →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="s-footer">
+        <div>
+          <div class="footer-logo">🌿 Mitopie</div>
+          <div class="footer-sub">Ferme bio · Le Moulin de Favières, Brecé 53120</div>
+        </div>
+        <div class="footer-links">
+          <a href="#">Accueil</a>
+          <a href="#">Produits</a>
+          <a href="#">Notre histoire</a>
+          <a href="#">Nous trouver</a>
+          <a href="#">Mentions légales</a>
+        </div>
+        <div class="footer-copy">© 2025 Mitopie · Tous droits réservés</div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ===================== MOBILE ===================== -->
+  <div class="frame-block">
+    <span class="frame-title">📱 Mobile</span>
+    <div class="mobile-frame">
+      <div class="mobile-notch"><div class="notch-pill"></div></div>
+
+      <!-- NAVBAR MOBILE -->
+      <nav class="s-nav mobile">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-icon" style="width:26px;height:26px;border-radius:6px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1B5E20" stroke-width="2.5" width="14" height="14">
+              <path d="M12 2C6 2 2 8 2 12s4 10 10 10 10-4 10-10S18 2 12 2z"/>
+              <path d="M12 2c0 0-4 4-4 10s4 10 4 10"/>
+              <path d="M2 12h20"/>
+            </svg>
+          </div>
+          <span class="nav-logo-text" style="font-size:15px;">Mitopie</span>
+        </a>
+        <div class="nav-burger">
+          <div class="burger-line"></div>
+          <div class="burger-line short"></div>
+          <div class="burger-line"></div>
+        </div>
+      </nav>
+
+      <!-- HERO MOBILE -->
+      <section class="s-hero mobile">
+        <div class="hero-inner mobile">
+          <div class="hero-left">
+            <div class="hero-tag" style="font-size:10px;padding:4px 10px;"><span></span> Agriculture bio · Brecé</div>
+            <h1 class="hero-h1">La nature dans<br>votre <em>assiette</em></h1>
+            <p class="hero-p">Légumes, œufs colorés et agneaux élevés avec passion à Brecé.</p>
+            <div class="hero-btns">
+              <a href="#" class="btn-primary" style="font-size:12px;padding:10px 18px;">🛒 Nos produits</a>
+              <a href="#" class="btn-outline" style="font-size:12px;padding:10px 16px;">Notre histoire</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat-item">
+                <div class="stat-num" style="font-size:16px;">2020</div>
+                <div class="stat-label">Création</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num" style="font-size:16px;">3</div>
+                <div class="stat-label">Gammes</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num" style="font-size:16px;">Bio</div>
+                <div class="stat-label">Certifiée</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORIES MOBILE -->
+      <section class="s-cats mobile">
+        <div>
+          <p class="section-eyebrow">Ce que nous produisons</p>
+          <h2 class="section-h2">Nos catégories</h2>
+        </div>
+        <div class="cats-grid" style="margin-top:14px;">
+          <a href="#" class="cat-card cat-legume">
+            <div class="cat-top">
+              <div class="cat-emoji">🥕</div>
+              <div class="cat-name">Légumes</div>
+            </div>
+            <div class="cat-bottom">
+              <span class="cat-badge">Saison</span>
+              <span class="cat-arrow">→</span>
+            </div>
+          </a>
+          <a href="#" class="cat-card cat-poule">
+            <div class="cat-top">
+              <div class="cat-emoji">🐔</div>
+              <div class="cat-name">Poules & Œufs</div>
+            </div>
+            <div class="cat-bottom">
+              <span class="cat-badge">Dispo</span>
+              <span class="cat-arrow">→</span>
+            </div>
+          </a>
+          <a href="#" class="cat-card cat-agneau">
+            <div class="cat-top">
+              <div class="cat-emoji">🐑</div>
+              <div class="cat-name">Animaux</div>
+            </div>
+            <div class="cat-bottom">
+              <span class="cat-badge">Commande</span>
+              <span class="cat-arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- PRODUITS MOBILE -->
+      <section class="s-products mobile">
+        <div>
+          <p class="section-eyebrow">À la une</p>
+          <h2 class="section-h2" style="font-size:18px;">Produits du moment</h2>
+        </div>
+        <div class="prod-grid">
+          <div class="prod-card">
+            <div class="prod-img l">🥬<span class="prod-saison-tag">Été</span></div>
+            <div class="prod-body">
+              <div class="prod-name">Salade verte</div>
+              <div class="prod-sub">Légumes · Bio</div>
+              <div class="prod-footer">
+                <span class="prod-price">1,50 €</span>
+                <div class="prod-btn" style="width:22px;height:22px;font-size:14px;">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img p">🥚<span class="prod-saison-tag">Toujours</span></div>
+            <div class="prod-body">
+              <div class="prod-name">Œufs colorés</div>
+              <div class="prod-sub">Poules · x6</div>
+              <div class="prod-footer">
+                <span class="prod-price">3,50 €</span>
+                <div class="prod-btn" style="width:22px;height:22px;font-size:14px;">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img a">🐑<span class="prod-saison-tag">Printemps</span></div>
+            <div class="prod-body">
+              <div class="prod-name">Agneau</div>
+              <div class="prod-sub">~8 kg</div>
+              <div class="prod-footer">
+                <span class="prod-price">18 €/kg</span>
+                <div class="prod-btn" style="width:22px;height:22px;font-size:14px;">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img l">🍅<span class="prod-saison-tag">Été</span></div>
+            <div class="prod-body">
+              <div class="prod-name">Tomates</div>
+              <div class="prod-sub">Bio</div>
+              <div class="prod-footer">
+                <span class="prod-price">2,80 €/kg</span>
+                <div class="prod-btn" style="width:22px;height:22px;font-size:14px;">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT MOBILE -->
+      <section class="s-about mobile">
+        <div class="about-avatar-wrap">
+          <div class="about-avatar">A</div>
+        </div>
+        <div class="about-content">
+          <p class="about-eyebrow">La paysanne derrière Mitopie</p>
+          <h2 class="about-name">Aurore Mengual</h2>
+          <p class="about-p" style="font-size:12px;">Passionnée de jardinage et d'animaux, Aurore a créé Mitopie en 2020 à Brecé.</p>
+          <a href="#" class="about-btn" style="font-size:11px;padding:7px 16px;margin-top:12px;">Lire son histoire →</a>
+        </div>
+      </section>
+
+      <!-- INFO MOBILE -->
+      <section class="s-info mobile">
+        <div class="info-card">
+          <div class="info-icon" style="width:34px;height:34px;font-size:16px;">📍</div>
+          <div>
+            <div class="info-title">À la ferme — Sam. 11h–12h30</div>
+            <div class="info-text">Le Moulin de Favières, Brecé</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon" style="width:34px;height:34px;font-size:16px;">🛒</div>
+          <div>
+            <div class="info-title">Marché de Gorron</div>
+            <div class="info-text">Mercredi 8h30–12h30</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon" style="width:34px;height:34px;font-size:16px;">📦</div>
+          <div>
+            <div class="info-title">Paniers Locavor</div>
+            <a href="#" class="info-link">Commander →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER MOBILE -->
+      <footer class="s-footer mobile" style="background:#111E11;padding:16px 18px;">
+        <div class="footer-logo">🌿 Mitopie</div>
+        <div class="footer-sub">Brecé, Mayenne · Agriculture bio</div>
+        <div class="footer-copy" style="color:#555;">© 2025 Mitopie</div>
+      </footer>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

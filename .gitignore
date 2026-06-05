@@ -1,0 +1,14 @@
+# Credentials & config local
+config/database.php
+scripts/create_admin.php
+
+# Dependencies
+vendor/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

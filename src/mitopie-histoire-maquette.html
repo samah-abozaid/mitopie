@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Mitopie · Notre histoire</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+body { background:#F0F4F0; font-family:'DM Sans',sans-serif; padding:32px 24px; }
+:root {
+  --g1:#1B5E20; --g2:#2E7D32; --g3:#388E3C;
+  --g4:#4CAF50; --g5:#76FF03;
+  --g-light:#E8F5E9; --g-pale:#F1F8E9;
+  --text:#1a2a1a; --muted:#5A7A5A;
+}
+.page-label { text-align:center; margin-bottom:32px; }
+.page-label h1 { font-family:'Playfair Display',serif; font-size:28px; color:var(--g1); font-weight:600; }
+.page-label p  { font-size:13px; color:#666; margin-top:4px; }
+.badge { display:inline-block; background:var(--g4); color:#fff; font-size:11px; padding:3px 10px; border-radius:20px; margin-top:8px; font-weight:500; }
+
+.frames { display:flex; gap:40px; align-items:flex-start; justify-content:center; flex-wrap:wrap; }
+.frame-block { display:flex; flex-direction:column; align-items:center; gap:12px; }
+.frame-title { font-size:12px; font-weight:500; color:#888; text-transform:uppercase; letter-spacing:0.08em; }
+
+.desktop-frame { width:860px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 32px rgba(0,0,0,0.10); border:1px solid #ddd; }
+.desktop-bar { background:#ECECEC; padding:10px 14px; display:flex; align-items:center; gap:10px; border-bottom:1px solid #ddd; }
+.dots { display:flex; gap:5px; }
+.dot { width:10px; height:10px; border-radius:50%; }
+.dot.r{background:#FF5F57;} .dot.y{background:#FFBD2E;} .dot.g{background:#28C840;}
+.url-bar { flex:1; background:#fff; border-radius:6px; padding:4px 12px; font-size:11px; color:#888; border:1px solid #ddd; }
+
+.mobile-frame { width:320px; background:#fff; border-radius:36px; overflow:hidden; box-shadow:0 4px 32px rgba(0,0,0,0.12); border:8px solid #222; }
+.mobile-notch { background:#222; height:28px; display:flex; align-items:center; justify-content:center; }
+.notch-pill { width:80px; height:10px; background:#111; border-radius:6px; }
+
+/* NAV */
+.s-nav { background:var(--g1); display:flex; align-items:center; justify-content:space-between; padding:14px 32px; }
+.s-nav.mob { padding:12px 18px; }
+.nav-logo { display:flex; align-items:center; gap:8px; text-decoration:none; }
+.nav-logo-icon { width:32px; height:32px; background:var(--g5); border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.nav-logo-text { font-family:'Playfair Display',serif; font-size:18px; color:#fff; font-weight:600; }
+.nav-logo-sub  { font-size:10px; color:#A5D6A7; display:block; font-weight:300; letter-spacing:0.05em; }
+.nav-links { display:flex; gap:28px; }
+.nav-links a { color:#A5D6A7; font-size:13px; text-decoration:none; }
+.nav-links a.active { color:#fff; font-weight:500; }
+.nav-cta { background:var(--g5); color:var(--g1) !important; padding:7px 16px; border-radius:20px; font-weight:500 !important; font-size:12px !important; }
+.nav-burger { display:flex; flex-direction:column; justify-content:space-between; width:26px; height:18px; cursor:pointer; }
+.burger-line { height:2px; background:#fff; border-radius:2px; }
+.burger-line.s { width:60%; }
+
+/* HERO HISTOIRE */
+.s-hero-hist {
+  background:var(--g1);
+  padding:52px 32px 44px;
+  position:relative; overflow:hidden;
+  display:flex; gap:36px; align-items:center;
+}
+.s-hero-hist.mob { flex-direction:column; padding:28px 20px 24px; text-align:center; gap:20px; }
+
+.hero-deco {
+  position:absolute; right:-40px; top:-40px;
+  width:280px; height:280px; border-radius:50%;
+  border:40px solid rgba(255,255,255,0.04);
+}
+.hero-deco2 {
+  position:absolute; right:80px; bottom:-60px;
+  width:160px; height:160px; border-radius:50%;
+  border:28px solid rgba(255,255,255,0.04);
+}
+
+.avatar-big {
+  width:120px; height:120px; border-radius:50%;
+  background:var(--g3); border:4px solid var(--g5);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:48px; color:#fff; flex-shrink:0;
+  position:relative; z-index:1;
+}
+.s-hero-hist.mob .avatar-big { width:90px; height:90px; font-size:36px; }
+
+.hist-hero-txt { position:relative; z-index:1; }
+.hist-eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:0.12em; color:var(--g5); font-weight:500; margin-bottom:8px; }
+.hist-h1 { font-family:'Playfair Display',serif; font-size:36px; color:#fff; font-weight:600; line-height:1.2; }
+.s-hero-hist.mob .hist-h1 { font-size:24px; }
+.hist-role { font-size:13px; color:#A5D6A7; margin-top:6px; font-weight:300; }
+.hist-quote {
+  margin-top:16px;
+  font-family:'Playfair Display',serif;
+  font-style:italic; font-size:16px;
+  color:#C8E6C9; line-height:1.5;
+  border-left:3px solid var(--g5);
+  padding-left:14px;
+}
+.s-hero-hist.mob .hist-quote { font-size:14px; border-left:0; border-top:2px solid var(--g5); padding-left:0; padding-top:10px; }
+
+/* TIMELINE */
+.s-timeline { padding:44px 32px; background:#fff; }
+.s-timeline.mob { padding:28px 18px; }
+
+.section-eyebrow { font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--g4); font-weight:500; margin-bottom:6px; }
+.section-h2 { font-family:'Playfair Display',serif; font-size:26px; color:var(--text); font-weight:600; margin-bottom:28px; }
+.s-timeline.mob .section-h2 { font-size:20px; margin-bottom:20px; }
+
+.timeline { position:relative; padding-left:28px; }
+.timeline::before {
+  content:''; position:absolute; left:7px; top:8px; bottom:8px;
+  width:2px; background:linear-gradient(to bottom, var(--g4), var(--g-light));
+  border-radius:2px;
+}
+.s-timeline.mob .timeline { padding-left:22px; }
+
+.tl-item { position:relative; margin-bottom:28px; }
+.tl-item:last-child { margin-bottom:0; }
+.tl-dot {
+  position:absolute; left:-28px; top:3px;
+  width:16px; height:16px; border-radius:50%;
+  background:#fff; border:2px solid var(--g4);
+  z-index:1;
+}
+.s-timeline.mob .tl-dot { left:-22px; width:13px; height:13px; }
+.tl-dot.filled { background:var(--g4); }
+
+.tl-year { font-size:11px; font-weight:500; color:var(--g4); margin-bottom:3px; letter-spacing:0.05em; }
+.tl-title { font-family:'Playfair Display',serif; font-size:17px; color:var(--text); font-weight:600; margin-bottom:4px; }
+.s-timeline.mob .tl-title { font-size:15px; }
+.tl-text { font-size:13px; color:var(--muted); line-height:1.7; font-weight:300; }
+.s-timeline.mob .tl-text { font-size:12px; }
+
+/* VALEURS */
+.s-valeurs { padding:40px 32px; background:var(--g-pale); }
+.s-valeurs.mob { padding:24px 18px; }
+
+.valeurs-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:24px; }
+.s-valeurs.mob .valeurs-grid { grid-template-columns:1fr; gap:12px; }
+
+.valeur-card {
+  background:#fff; border-radius:14px;
+  border:1px solid #D0E8D0;
+  padding:20px;
+}
+.s-valeurs.mob .valeur-card { padding:16px; }
+.valeur-icon { font-size:32px; margin-bottom:10px; }
+.s-valeurs.mob .valeur-icon { font-size:26px; margin-bottom:8px; }
+.valeur-title { font-family:'Playfair Display',serif; font-size:16px; color:var(--text); font-weight:600; margin-bottom:6px; }
+.s-valeurs.mob .valeur-title { font-size:14px; }
+.valeur-text { font-size:12px; color:var(--muted); line-height:1.6; font-weight:300; }
+
+/* PHOTOS GALERIE */
+.s-galerie { padding:40px 32px; background:#fff; }
+.s-galerie.mob { padding:24px 18px; }
+
+.galerie-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px; }
+.s-galerie.mob .galerie-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+
+.photo-card {
+  border-radius:12px; overflow:hidden;
+  border:1px solid #E8F5E9;
+  aspect-ratio:1;
+  display:flex; align-items:center; justify-content:center;
+  font-size:48px;
+  position:relative;
+}
+.s-galerie.mob .photo-card { font-size:36px; }
+.photo-card.p1 { background:#E8F5E9; }
+.photo-card.p2 { background:#FFF8E1; }
+.photo-card.p3 { background:#FCE4EC; }
+.photo-card.p4 { background:#E3F2FD; }
+.photo-overlay {
+  position:absolute; bottom:0; left:0; right:0;
+  background:rgba(27,94,32,0.7);
+  color:#fff; font-size:10px; font-family:'DM Sans',sans-serif;
+  padding:5px 8px; text-align:center;
+}
+
+/* CTA CONTACT */
+.s-contact-cta {
+  background:var(--g2); padding:36px 32px;
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+}
+.s-contact-cta.mob { flex-direction:column; text-align:center; padding:24px 18px; gap:16px; }
+.cta-eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--g5); margin-bottom:6px; font-weight:500; }
+.cta-h3 { font-family:'Playfair Display',serif; font-size:22px; color:#fff; }
+.s-contact-cta.mob .cta-h3 { font-size:18px; }
+.cta-p { font-size:12px; color:#A5D6A7; margin-top:6px; font-weight:300; line-height:1.6; }
+.cta-btns { display:flex; gap:10px; flex-shrink:0; flex-wrap:wrap; justify-content:center; }
+.btn-g5 { background:var(--g5); color:var(--g1); padding:11px 22px; border-radius:28px; font-size:13px; font-weight:500; text-decoration:none; white-space:nowrap; }
+.btn-ghost { border:1px solid rgba(255,255,255,0.3); color:#fff; padding:11px 22px; border-radius:28px; font-size:13px; text-decoration:none; white-space:nowrap; }
+.s-contact-cta.mob .btn-g5, .s-contact-cta.mob .btn-ghost { font-size:12px; padding:9px 18px; }
+
+/* FOOTER */
+.s-footer { background:#111E11; padding:24px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.s-footer.mob { padding:16px 18px; flex-direction:column; text-align:center; gap:6px; }
+.footer-logo { font-family:'Playfair Display',serif; font-size:15px; color:#fff; font-weight:600; }
+.footer-sub  { font-size:10px; color:var(--g4); margin-top:2px; }
+.footer-links { display:flex; gap:16px; }
+.footer-links a { font-size:11px; color:var(--g4); text-decoration:none; }
+.footer-copy { font-size:10px; color:#333; }
+</style>
+</head>
+<body>
+
+<div class="page-label">
+  <h1>Mitopie — Notre histoire</h1>
+  <p>Maquette de validation · Ferme Mitopie, Brecé (53)</p>
+  <span class="badge">🌿 Page "À propos" d'Aurore</span>
+</div>
+
+<div class="frames">
+
+  <!-- ══════════ DESKTOP ══════════ -->
+  <div class="frame-block">
+    <span class="frame-title">🖥 Desktop</span>
+    <div class="desktop-frame">
+      <div class="desktop-bar">
+        <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+        <div class="url-bar">🔒 www.mitopie.fr/notre-histoire</div>
+      </div>
+
+      <nav class="s-nav">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1B5E20" stroke-width="2.5" width="18" height="18">
+              <path d="M12 2C6 2 2 8 2 12s4 10 10 10 10-4 10-10S18 2 12 2z"/>
+              <path d="M12 2c0 0-4 4-4 10s4 10 4 10"/><path d="M2 12h20"/>
+            </svg>
+          </div>
+          <div><span class="nav-logo-text">Mitopie</span><span class="nav-logo-sub">Ferme bio · Brecé</span></div>
+        </a>
+        <div class="nav-links">
+          <a href="#">Accueil</a><a href="#">Produits</a>
+          <a href="#" class="active">Notre histoire</a>
+          <a href="#">Nous trouver</a>
+          <a href="#" class="nav-cta">Commander sur Locavor →</a>
+        </div>
+      </nav>
+
+      <!-- HERO -->
+      <div class="s-hero-hist">
+        <div class="hero-deco"></div><div class="hero-deco2"></div>
+        <div class="avatar-big">A</div>
+        <div class="hist-hero-txt">
+          <div class="hist-eyebrow">La paysanne derrière Mitopie</div>
+          <h1 class="hist-h1">Aurore Mengual</h1>
+          <div class="hist-role">Maraîchère & éleveuse · Brecé, Mayenne · Depuis 2020</div>
+          <div class="hist-quote">"Je serai paysanne" — une évidence qui a tout changé.</div>
+        </div>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="s-timeline">
+        <p class="section-eyebrow">Son parcours</p>
+        <h2 class="section-h2">Une passion qui est devenue un métier</h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-year">Avant 2017</div>
+            <div class="tl-title">L'amour de la terre naît</div>
+            <div class="tl-text">Nantaise d'origine, Aurore développe dès ses premières années une passion profonde pour le jardinage et les animaux. Elle lance ses premières activités de maraîchage, l'élevage de poules et de moutons depuis sa maison. Au fil des années, les techniques se perfectionnent.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-year">2017</div>
+            <div class="tl-title">L'installation à Brecé</div>
+            <div class="tl-text">Aurore s'installe au Moulin de Favières à Brecé, en Mayenne. Ce magnifique lieu devient le berceau de son projet agricole. Elle décide d'y ouvrir son entreprise et de franchir le cap professionnel.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-year">2018 – 2019</div>
+            <div class="tl-title">La formation "Paysans créatifs"</div>
+            <div class="tl-text">Aurore s'inscrit auprès de la CIAP 53 au stage "Paysans créatifs". Pendant un an, elle se forme à la Ferme des Fontaines (maraîchage bio, élevage ovin viande) et chez Les Bergers dans l'Âme (élevage ovin lait, fromagerie bio).</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-year">2020</div>
+            <div class="tl-title">La naissance de Mitopie</div>
+            <div class="tl-text">Le 1er avril 2020, l'entreprise MITOPIE voit le jour. Aurore lance officiellement sa ferme biologique avec maraîchage, poules de races et élevage d'agneaux — vente directe à la ferme, au marché de Gorron et sur Locavor.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Aujourd'hui</div>
+            <div class="tl-title">Une ferme en plein essor</div>
+            <div class="tl-text">Mitopie continue de grandir avec des produits de haute qualité, un engagement fort pour le bien-être animal et une agriculture respectueuse de l'environnement.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VALEURS -->
+      <div class="s-valeurs">
+        <p class="section-eyebrow">Ce qui nous guide</p>
+        <h2 class="section-h2">Nos valeurs</h2>
+        <div class="valeurs-grid">
+          <div class="valeur-card">
+            <div class="valeur-icon">🌿</div>
+            <div class="valeur-title">Agriculture biologique</div>
+            <div class="valeur-text">Tous nos produits sont cultivés et élevés dans le respect des normes biologiques, sans pesticides ni intrants chimiques.</div>
+          </div>
+          <div class="valeur-card">
+            <div class="valeur-icon">🐑</div>
+            <div class="valeur-title">Bien-être animal</div>
+            <div class="valeur-text">Nos animaux grandissent en plein air, dans de grandes prairies, avec une alimentation naturelle et un soin quotidien attentif.</div>
+          </div>
+          <div class="valeur-card">
+            <div class="valeur-icon">🤝</div>
+            <div class="valeur-title">Circuit court local</div>
+            <div class="valeur-text">Vente directe à la ferme, au marché et via Locavor — pour que chaque euro reste dans l'économie locale mayennaise.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GALERIE -->
+      <div class="s-galerie">
+        <p class="section-eyebrow">La ferme en images</p>
+        <h2 class="section-h2">Quelques photos</h2>
+        <div class="galerie-grid">
+          <div class="photo-card p1">🌱<div class="photo-overlay">Le jardin maraîcher</div></div>
+          <div class="photo-card p2">🐔<div class="photo-overlay">Les poules de race</div></div>
+          <div class="photo-card p3">🐑<div class="photo-overlay">Le troupeau</div></div>
+          <div class="photo-card p4">🌾<div class="photo-overlay">Le Moulin de Favières</div></div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="s-contact-cta">
+        <div>
+          <div class="cta-eyebrow">Envie d'en savoir plus ?</div>
+          <h3 class="cta-h3">Venez nous rendre visite à la ferme</h3>
+          <p class="cta-p">Nous sommes ouverts le samedi de 11h à 12h30 au Moulin de Favières.<br>N'hésitez pas à nous contacter pour toute question.</p>
+        </div>
+        <div class="cta-btns">
+          <a href="#" class="btn-g5">📍 Nous trouver</a>
+          <a href="#" class="btn-ghost">📧 Nous contacter</a>
+        </div>
+      </div>
+
+      <footer class="s-footer">
+        <div><div class="footer-logo">🌿 Mitopie</div><div class="footer-sub">Ferme bio · Brecé, Mayenne</div></div>
+        <div class="footer-links"><a href="#">Accueil</a><a href="#">Produits</a><a href="#">Notre histoire</a><a href="#">Nous trouver</a><a href="#">Mentions légales</a></div>
+        <div class="footer-copy">© 2025 Mitopie</div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ══════════ MOBILE ══════════ -->
+  <div class="frame-block">
+    <span class="frame-title">📱 Mobile</span>
+    <div class="mobile-frame">
+      <div class="mobile-notch"><div class="notch-pill"></div></div>
+
+      <nav class="s-nav mob">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-icon" style="width:26px;height:26px;border-radius:6px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1B5E20" stroke-width="2.5" width="14" height="14">
+              <path d="M12 2C6 2 2 8 2 12s4 10 10 10 10-4 10-10S18 2 12 2z"/>
+              <path d="M12 2c0 0-4 4-4 10s4 10 4 10"/><path d="M2 12h20"/>
+            </svg>
+          </div>
+          <span class="nav-logo-text" style="font-size:15px;">Mitopie</span>
+        </a>
+        <div class="nav-burger"><div class="burger-line"></div><div class="burger-line s"></div><div class="burger-line"></div></div>
+      </nav>
+
+      <div class="s-hero-hist mob">
+        <div class="avatar-big">A</div>
+        <div class="hist-hero-txt">
+          <div class="hist-eyebrow">La paysanne derrière Mitopie</div>
+          <h1 class="hist-h1">Aurore Mengual</h1>
+          <div class="hist-role">Maraîchère & éleveuse · Brecé · 2020</div>
+          <div class="hist-quote">"Je serai paysanne" — une évidence qui a tout changé.</div>
+        </div>
+      </div>
+
+      <div class="s-timeline mob">
+        <p class="section-eyebrow">Son parcours</p>
+        <h2 class="section-h2">Une passion devenue métier</h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-year">Avant 2017</div>
+            <div class="tl-title">L'amour de la terre</div>
+            <div class="tl-text">Maraîchage et élevage dès ses débuts, une passion qui ne s'est jamais éteinte.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-year">2017</div>
+            <div class="tl-title">Installation à Brecé</div>
+            <div class="tl-text">Aurore s'installe au Moulin de Favières et décide de lancer son projet agricole.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-year">2018 – 2019</div>
+            <div class="tl-title">Formation "Paysans créatifs"</div>
+            <div class="tl-text">Un an de formation intensive en maraîchage bio et élevage ovin.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-year">2020</div>
+            <div class="tl-title">Naissance de Mitopie 🎉</div>
+            <div class="tl-text">Le 1er avril 2020, l'entreprise MITOPIE voit le jour officiellement.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Aujourd'hui</div>
+            <div class="tl-title">Une ferme en plein essor</div>
+            <div class="tl-text">Produits bio, bien-être animal, vente directe locale.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s-valeurs mob">
+        <p class="section-eyebrow">Ce qui nous guide</p>
+        <h2 class="section-h2">Nos valeurs</h2>
+        <div class="valeurs-grid">
+          <div class="valeur-card">
+            <div class="valeur-icon">🌿</div>
+            <div class="valeur-title">Agriculture biologique</div>
+            <div class="valeur-text">Sans pesticides ni intrants chimiques.</div>
+          </div>
+          <div class="valeur-card">
+            <div class="valeur-icon">🐑</div>
+            <div class="valeur-title">Bien-être animal</div>
+            <div class="valeur-text">Animaux en plein air, alimentation naturelle.</div>
+          </div>
+          <div class="valeur-card">
+            <div class="valeur-icon">🤝</div>
+            <div class="valeur-title">Circuit court</div>
+            <div class="valeur-text">Vente directe, économie locale mayennaise.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s-galerie mob">
+        <p class="section-eyebrow">La ferme en images</p>
+        <h2 class="section-h2" style="font-size:18px;">Quelques photos</h2>
+        <div class="galerie-grid">
+          <div class="photo-card p1" style="font-size:30px;">🌱<div class="photo-overlay">Le jardin</div></div>
+          <div class="photo-card p2" style="font-size:30px;">🐔<div class="photo-overlay">Les poules</div></div>
+          <div class="photo-card p3" style="font-size:30px;">🐑<div class="photo-overlay">Le troupeau</div></div>
+          <div class="photo-card p4" style="font-size:30px;">🌾<div class="photo-overlay">Le Moulin</div></div>
+        </div>
+      </div>
+
+      <div class="s-contact-cta mob">
+        <div class="cta-eyebrow">Envie d'en savoir plus ?</div>
+        <h3 class="cta-h3">Venez nous voir à la ferme</h3>
+        <p class="cta-p">Samedi 11h–12h30 · Moulin de Favières, Brecé</p>
+        <div class="cta-btns">
+          <a href="#" class="btn-g5">📍 Nous trouver</a>
+          <a href="#" class="btn-ghost">📧 Contact</a>
+        </div>
+      </div>
+
+      <footer class="s-footer mob">
+        <div class="footer-logo">🌿 Mitopie</div>
+        <div class="footer-sub">Brecé · Bio</div>
+        <div class="footer-copy" style="color:#555;">© 2025 Mitopie</div>
+      </footer>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

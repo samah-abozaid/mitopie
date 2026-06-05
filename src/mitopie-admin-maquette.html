@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Mitopie · Espace Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+body { background:#F0F4F0; font-family:'DM Sans',sans-serif; padding:32px 24px; }
+:root {
+  --g1:#1B5E20; --g2:#2E7D32; --g3:#388E3C;
+  --g4:#4CAF50; --g5:#76FF03;
+  --g-light:#E8F5E9; --g-pale:#F1F8E9;
+  --text:#1a2a1a; --muted:#5A7A5A;
+}
+
+.page-label { text-align:center; margin-bottom:32px; }
+.page-label h1 { font-family:'Playfair Display',serif; font-size:28px; color:var(--g1); font-weight:600; }
+.page-label p  { font-size:13px; color:#666; margin-top:4px; }
+.badge { display:inline-block; background:var(--g1); color:#fff; font-size:11px; padding:3px 10px; border-radius:20px; margin-top:8px; font-weight:500; }
+
+/* ── FRAMES ── */
+.frames { display:flex; gap:48px; align-items:flex-start; justify-content:center; flex-wrap:wrap; }
+.frame-block { display:flex; flex-direction:column; align-items:center; gap:12px; }
+.frame-title { font-size:12px; font-weight:500; color:#888; text-transform:uppercase; letter-spacing:0.08em; }
+
+.desktop-frame { width:860px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 32px rgba(0,0,0,0.10); border:1px solid #ddd; }
+.desktop-bar { background:#ECECEC; padding:10px 14px; display:flex; align-items:center; gap:10px; border-bottom:1px solid #ddd; }
+.dots { display:flex; gap:5px; }
+.dot { width:10px; height:10px; border-radius:50%; }
+.dot.r{background:#FF5F57;} .dot.y{background:#FFBD2E;} .dot.g{background:#28C840;}
+.url-bar { flex:1; background:#fff; border-radius:6px; padding:4px 12px; font-size:11px; color:#888; border:1px solid #ddd; }
+
+.mobile-frame { width:320px; background:#fff; border-radius:36px; overflow:hidden; box-shadow:0 4px 32px rgba(0,0,0,0.12); border:8px solid #222; }
+.mobile-notch { background:#222; height:28px; display:flex; align-items:center; justify-content:center; }
+.notch-pill { width:80px; height:10px; background:#111; border-radius:6px; }
+
+/* ══════════════════════════════════
+   PAGE SEPARATEUR
+══════════════════════════════════ */
+.page-sep {
+  text-align:center; margin:52px 0 32px;
+  display:flex; align-items:center; gap:16px;
+}
+.sep-line { flex:1; height:1px; background:#D0E8D0; }
+.sep-label {
+  font-family:'Playfair Display',serif;
+  font-size:20px; color:var(--g1); font-weight:600;
+  white-space:nowrap;
+}
+
+/* ══════════════════════════════════
+   LOGIN PAGE
+══════════════════════════════════ */
+.login-page {
+  background: var(--g1);
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.login-page.mob { min-height:unset; padding:32px 20px; }
+
+.login-deco1 {
+  position:absolute; width:300px; height:300px; border-radius:50%;
+  border:50px solid rgba(255,255,255,0.04);
+  top:-100px; right:-80px;
+}
+.login-deco2 {
+  position:absolute; width:180px; height:180px; border-radius:50%;
+  border:30px solid rgba(255,255,255,0.04);
+  bottom:-60px; left:-40px;
+}
+
+.login-card {
+  background:#fff; border-radius:20px;
+  padding:36px 32px;
+  width:100%; max-width:380px;
+  position:relative; z-index:1;
+  box-shadow:0 16px 48px rgba(0,0,0,0.2);
+}
+.login-page.mob .login-card { padding:26px 22px; }
+
+.login-logo {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:24px; justify-content:center;
+}
+.login-logo-icon {
+  width:40px; height:40px; background:var(--g1);
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+}
+.login-logo-text { font-family:'Playfair Display',serif; font-size:20px; color:var(--g1); font-weight:600; }
+.login-logo-sub  { font-size:11px; color:var(--g4); display:block; }
+
+.login-title { font-family:'Playfair Display',serif; font-size:22px; color:var(--text); font-weight:600; text-align:center; margin-bottom:4px; }
+.login-sub   { font-size:12px; color:var(--muted); text-align:center; margin-bottom:24px; }
+.login-page.mob .login-title { font-size:18px; }
+
+.form-row { margin-bottom:14px; }
+.form-label { font-size:11px; font-weight:500; color:var(--muted); margin-bottom:5px; display:block; }
+.form-input-wrap { position:relative; }
+.form-input {
+  width:100%; border:1px solid #D0E8D0; border-radius:10px;
+  padding:11px 14px; font-size:13px; color:var(--text);
+  font-family:'DM Sans',sans-serif; background:#FAFFFE;
+}
+.form-input:focus { outline:none; border-color:var(--g4); }
+.input-icon {
+  position:absolute; right:12px; top:50%; transform:translateY(-50%);
+  font-size:14px; color:var(--muted);
+}
+
+.login-btn {
+  width:100%; background:var(--g2); color:#fff;
+  border:none; border-radius:28px; padding:13px;
+  font-size:14px; font-weight:500; cursor:pointer;
+  font-family:'DM Sans',sans-serif; margin-top:8px;
+}
+.login-security {
+  margin-top:16px; text-align:center;
+  font-size:11px; color:var(--muted);
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.lock-icon { font-size:12px; }
+.login-back { display:block; margin-top:14px; text-align:center; font-size:11px; color:var(--g4); text-decoration:none; }
+
+/* ══════════════════════════════════
+   DASHBOARD
+══════════════════════════════════ */
+.dashboard {
+  display: flex;
+  min-height: 620px;
+}
+.dashboard.mob { flex-direction:column; min-height:unset; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 200px; flex-shrink:0;
+  background: var(--g1);
+  padding: 20px 0;
+  display: flex; flex-direction:column;
+}
+.sidebar-logo {
+  display:flex; align-items:center; gap:8px;
+  padding:0 16px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  margin-bottom:8px;
+}
+.sidebar-logo-icon {
+  width:28px; height:28px; background:var(--g5);
+  border-radius:6px; display:flex; align-items:center; justify-content:center;
+}
+.sidebar-logo-text { font-family:'Playfair Display',serif; font-size:15px; color:#fff; font-weight:600; }
+.sidebar-logo-sub  { font-size:9px; color:#A5D6A7; display:block; }
+
+.sidebar-section-label {
+  font-size:9px; text-transform:uppercase; letter-spacing:0.12em;
+  color:#4CAF50; padding:12px 16px 4px; font-weight:500;
+}
+.sidebar-item {
+  display:flex; align-items:center; gap:8px;
+  padding:9px 16px; font-size:12px; color:#A5D6A7;
+  text-decoration:none; cursor:pointer;
+  border-left:3px solid transparent;
+}
+.sidebar-item.active {
+  color:#fff; background:rgba(255,255,255,0.08);
+  border-left-color:var(--g5);
+}
+.sidebar-item:hover { color:#fff; }
+.sidebar-icon { font-size:14px; flex-shrink:0; }
+
+.sidebar-footer {
+  margin-top:auto; padding:12px 16px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+.sidebar-user { display:flex; align-items:center; gap:8px; }
+.sidebar-avatar {
+  width:28px; height:28px; border-radius:50%;
+  background:var(--g3); border:2px solid var(--g5);
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; color:#fff; font-weight:500;
+}
+.sidebar-user-name { font-size:11px; color:#fff; font-weight:500; }
+.sidebar-user-role { font-size:9px; color:#81C784; }
+.sidebar-logout { font-size:10px; color:#EF9A9A; margin-top:8px; cursor:pointer; }
+
+/* MAIN CONTENT */
+.main-content { flex:1; background:#F8FBF8; overflow:auto; }
+
+.main-header {
+  background:#fff; padding:16px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid #E8F5E9;
+}
+.main-header.mob { padding:12px 16px; }
+.main-header-title { font-family:'Playfair Display',serif; font-size:18px; color:var(--text); font-weight:600; }
+.main-header.mob .main-header-title { font-size:15px; }
+.main-header-sub { font-size:11px; color:var(--muted); margin-top:1px; }
+.header-btn {
+  background:var(--g4); color:#fff;
+  border:none; border-radius:20px; padding:8px 16px;
+  font-size:12px; font-weight:500; cursor:pointer;
+  font-family:'DM Sans',sans-serif; white-space:nowrap;
+}
+
+.main-body { padding:20px 24px; }
+.main-body.mob { padding:14px 14px; }
+
+/* STAT CARDS */
+.stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.dashboard.mob .stats-row { grid-template-columns:repeat(2,1fr); gap:10px; }
+
+.stat-card {
+  background:#fff; border-radius:12px;
+  border:1px solid #E8F5E9; padding:14px 16px;
+}
+.stat-card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.stat-card-icon { font-size:20px; }
+.stat-card-badge {
+  font-size:10px; padding:2px 7px; border-radius:8px; font-weight:500;
+}
+.badge-up   { background:#E8F5E9; color:#2E7D32; }
+.badge-down { background:#FFEBEE; color:#C62828; }
+.stat-card-num { font-family:'Playfair Display',serif; font-size:22px; color:var(--text); font-weight:600; }
+.dashboard.mob .stat-card-num { font-size:18px; }
+.stat-card-lbl { font-size:11px; color:var(--muted); margin-top:2px; }
+
+/* PRODUITS TABLE */
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.section-title { font-family:'Playfair Display',serif; font-size:17px; color:var(--text); font-weight:600; }
+.dashboard.mob .section-title { font-size:15px; }
+.section-action { font-size:11px; color:var(--g4); cursor:pointer; font-weight:500; }
+
+.prod-table { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; border:1px solid #E8F5E9; }
+.prod-table th { background:var(--g-pale); padding:10px 14px; font-size:11px; font-weight:500; color:var(--muted); text-align:left; border-bottom:1px solid #E8F5E9; }
+.prod-table td { padding:11px 14px; font-size:12px; color:var(--text); border-bottom:1px solid #F1F8E9; vertical-align:middle; }
+.prod-table tr:last-child td { border-bottom:none; }
+.prod-table tr:hover td { background:#FAFFFE; }
+
+.prod-emoji-cell { font-size:22px; }
+.prod-name-cell { font-weight:500; }
+.prod-cat-pill {
+  font-size:10px; padding:3px 8px; border-radius:8px; font-weight:500;
+}
+.pill-legume { background:#E8F5E9; color:#1B5E20; }
+.pill-poule  { background:#FFF9C4; color:#E65100; }
+.pill-agneau { background:#FCE4EC; color:#880E4F; }
+
+.dispo-dot { display:inline-flex; align-items:center; gap:5px; font-size:11px; }
+.dot-green { width:7px; height:7px; border-radius:50%; background:#4CAF50; }
+.dot-red   { width:7px; height:7px; border-radius:50%; background:#EF5350; }
+.dot-orange{ width:7px; height:7px; border-radius:50%; background:#FFA726; }
+
+.action-btns { display:flex; gap:6px; }
+.btn-edit {
+  background:var(--g-pale); color:var(--g2);
+  border:1px solid #D0E8D0; border-radius:6px;
+  padding:4px 10px; font-size:11px; cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+}
+.btn-del {
+  background:#FFF5F5; color:#EF5350;
+  border:1px solid #FFCDD2; border-radius:6px;
+  padding:4px 10px; font-size:11px; cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+}
+
+/* EDIT MODAL */
+.edit-modal-wrap {
+  margin-top:20px;
+  background:#fff; border-radius:14px;
+  border:1px solid #D0E8D0; overflow:hidden;
+}
+.edit-modal-header {
+  background:var(--g-pale); padding:14px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid #D0E8D0;
+}
+.edit-modal-title { font-family:'Playfair Display',serif; font-size:16px; color:var(--text); font-weight:600; }
+.dashboard.mob .edit-modal-title { font-size:14px; }
+.edit-modal-close { font-size:16px; color:var(--muted); cursor:pointer; }
+.edit-modal-body { padding:20px; }
+.dashboard.mob .edit-modal-body { padding:14px; }
+
+.edit-form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.dashboard.mob .edit-form-grid { grid-template-columns:1fr; gap:10px; }
+.edit-form-full { grid-column:1/-1; }
+
+.edit-label { font-size:11px; font-weight:500; color:var(--muted); margin-bottom:4px; display:block; }
+.edit-input {
+  width:100%; border:1px solid #D0E8D0; border-radius:8px;
+  padding:9px 12px; font-size:13px; color:var(--text);
+  font-family:'DM Sans',sans-serif; background:#FAFFFE;
+}
+.edit-select {
+  width:100%; border:1px solid #D0E8D0; border-radius:8px;
+  padding:9px 12px; font-size:13px; color:var(--text);
+  font-family:'DM Sans',sans-serif; background:#FAFFFE;
+}
+.dashboard.mob .edit-input, .dashboard.mob .edit-select { font-size:12px; }
+
+.edit-modal-footer {
+  padding:14px 20px; border-top:1px solid #E8F5E9;
+  display:flex; gap:10px; justify-content:flex-end;
+}
+.dashboard.mob .edit-modal-footer { padding:12px 14px; }
+.btn-save {
+  background:var(--g4); color:#fff;
+  border:none; border-radius:20px; padding:9px 22px;
+  font-size:12px; font-weight:500; cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+}
+.btn-cancel {
+  background:#fff; color:var(--muted);
+  border:1px solid #D0E8D0; border-radius:20px; padding:9px 22px;
+  font-size:12px; cursor:pointer; font-family:'DM Sans',sans-serif;
+}
+
+/* MOBILE SIDEBAR REPLACED BY TOP NAV */
+.mob-admin-nav {
+  background:var(--g1); padding:12px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.mob-admin-logo { font-family:'Playfair Display',serif; font-size:15px; color:#fff; font-weight:600; }
+.mob-admin-badge { background:var(--g5); color:var(--g1); font-size:10px; font-weight:500; padding:3px 8px; border-radius:10px; }
+
+.mob-nav-pills {
+  background:#fff; padding:10px 12px;
+  display:flex; gap:6px; overflow-x:auto;
+  border-bottom:1px solid #E8F5E9;
+}
+.mob-nav-pill {
+  font-size:11px; padding:5px 12px; border-radius:20px;
+  white-space:nowrap; border:1px solid #D0E8D0;
+  color:var(--muted); background:#fff; flex-shrink:0;
+}
+.mob-nav-pill.active { background:var(--g2); color:#fff; border-color:var(--g2); font-weight:500; }
+
+/* MINI TABLE MOBILE */
+.mini-prod-list { background:#fff; border-radius:12px; border:1px solid #E8F5E9; overflow:hidden; }
+.mini-prod-item {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border-bottom:1px solid #F1F8E9;
+}
+.mini-prod-item:last-child { border-bottom:none; }
+.mini-emoji { font-size:20px; flex-shrink:0; }
+.mini-info { flex:1; }
+.mini-name { font-size:12px; font-weight:500; color:var(--text); }
+.mini-price { font-size:11px; color:var(--g2); }
+.mini-actions { display:flex; gap:6px; }
+.mini-btn-edit { font-size:18px; cursor:pointer; }
+.mini-btn-del  { font-size:18px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="page-label">
+  <h1>Mitopie — Espace Administration</h1>
+  <p>Maquette de validation · Accès réservé à Aurore</p>
+  <span class="badge">🔐 Page Login + Dashboard</span>
+</div>
+
+<!-- ════════════════════════════════
+     PAGE LOGIN
+════════════════════════════════ -->
+<div class="page-sep">
+  <div class="sep-line"></div>
+  <div class="sep-label">🔐 Page 1 — Connexion</div>
+  <div class="sep-line"></div>
+</div>
+
+<div class="frames">
+
+  <!-- LOGIN DESKTOP -->
+  <div class="frame-block">
+    <span class="frame-title">🖥 Desktop</span>
+    <div class="desktop-frame">
+      <div class="desktop-bar">
+        <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+        <div class="url-bar">🔒 www.mitopie.fr/admin/login</div>
+      </div>
+      <div class="login-page">
+        <div class="login-deco1"></div>
+        <div class="login-deco2"></div>
+        <div class="login-card">
+          <div class="login-logo">
+            <div class="login-logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#76FF03" stroke-width="2.5" width="20" height="20">
+                <path d="M12 2C6 2 2 8 2 12s4 10 10 10 10-4 10-10S18 2 12 2z"/>
+                <path d="M12 2c0 0-4 4-4 10s4 10 4 10"/><path d="M2 12h20"/>
+              </svg>
+            </div>
+            <div>
+              <span class="login-logo-text">Mitopie</span>
+              <span class="login-logo-sub">Espace administration</span>
+            </div>
+          </div>
+          <div class="login-title">Connexion</div>
+          <div class="login-sub">Réservé à la gérante de la ferme</div>
+          <div class="form-row">
+            <label class="form-label">Adresse email</label>
+            <div class="form-input-wrap">
+              <input class="form-input" type="email" value="aurore@mitopie.fr" />
+              <span class="input-icon">📧</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Mot de passe</label>
+            <div class="form-input-wrap">
+              <input class="form-input" type="password" value="••••••••••" />
+              <span class="input-icon">👁</span>
+            </div>
+          </div>
+          <button class="login-btn">Se connecter →</button>
+          <div class="login-security">
+            <span class="lock-icon">🔒</span>
+            Connexion sécurisée · Accès protégé
+          </div>
+          <a href="#" class="login-back">← Retour au site</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN MOBILE -->
+  <div class="frame-block">
+    <span class="frame-title">📱 Mobile</span>
+    <div class="mobile-frame">
+      <div class="mobile-notch"><div class="notch-pill"></div></div>
+      <div class="login-page mob">
+        <div class="login-deco1"></div>
+        <div class="login-card">
+          <div class="login-logo">
+            <div class="login-logo-icon" style="width:34px;height:34px;border-radius:8px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#76FF03" stroke-width="2.5" width="16" height="16">
+                <path d="M12 2C6 2 2 8 2 12s4 10 10 10 10-4 10-10S18 2 12 2z"/>
+                <path d="M12 2c0 0-4 4-4 10s4 10 4 10"/><path d="M2 12h20"/>
+              </svg>
+            </div>
+            <div>
+              <span class="login-logo-text" style="font-size:17px;">Mitopie</span>
+              <span class="login-logo-sub">Administration</span>
+            </div>
+          </div>
+          <div class="login-title">Connexion</div>
+          <div class="login-sub">Accès réservé à Aurore</div>
+          <div class="form-row">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="aurore@mitopie.fr" />
+          </div>
+          <div class="form-row">
+            <label class="form-label">Mot de passe</label>
+            <input class="form-input" type="password" placeholder="••••••••" />
+          </div>
+          <button class="login-btn" style="font-size:13px;padding:11px;">Se connecter →</button>
+          <div class="login-security" style="font-size:10px;">🔒 Connexion sécurisée</div>
+          <a href="#" class="login-back">← Retour au site</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     DASHBOARD
+════════════════════════════════ -->
+<div class="page-sep">
+  <div class="sep-line"></div>
+  <div class="sep-label">📊 Page 2 — Dashboard Admin</div>
+  <div class="sep-line"></div>
+</div>
+
+<div class="frames">
+
+  <!-- DASHBOARD DESKTOP -->
+  <div class="frame-block">
+    <span class="frame-title">🖥 Desktop</span>
+    <div class="desktop-frame">
+      <div class="desktop-bar">
+        <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+        <div class="url-bar">🔒 www.mitopie.fr/admin/produits</div>
+      </div>
+      <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+          <div class="sidebar-logo">
+            <div class="sidebar-logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#1B5E20" stroke-width="2.5" width="14" height="14">
+                <path d="M12 2C6 2 2 8 2 12s4 10 10 10 10-4 10-10S18 2 12 2z"/>
+                <path d="M12 2c0 0-4 4-4 10s4 10 4 10"/><path d="M2 12h20"/>
+              </svg>
+            </div>
+            <div>
+              <span class="sidebar-logo-text">Mitopie</span>
+              <span class="sidebar-logo-sub">Admin</span>
+            </div>
+          </div>
+
+          <div class="sidebar-section-label">Menu principal</div>
+          <a class="sidebar-item" href="#"><span class="sidebar-icon">🏠</span> Tableau de bord</a>
+          <a class="sidebar-item active" href="#"><span class="sidebar-icon">🛒</span> Produits</a>
+          <a class="sidebar-item" href="#"><span class="sidebar-icon">🥕</span> Catégories</a>
+          <a class="sidebar-item" href="#"><span class="sidebar-icon">📷</span> Photos</a>
+
+          <div class="sidebar-section-label">Site web</div>
+          <a class="sidebar-item" href="#"><span class="sidebar-icon">📝</span> Notre histoire</a>
+          <a class="sidebar-item" href="#"><span class="sidebar-icon">📍</span> Horaires</a>
+          <a class="sidebar-item" href="#"><span class="sidebar-icon">🌐</span> Voir le site</a>
+
+          <div class="sidebar-footer">
+            <div class="sidebar-user">
+              <div class="sidebar-avatar">A</div>
+              <div>
+                <div class="sidebar-user-name">Aurore M.</div>
+                <div class="sidebar-user-role">Administratrice</div>
+              </div>
+            </div>
+            <div class="sidebar-logout">🚪 Se déconnecter</div>
+          </div>
+        </div>
+
+        <!-- MAIN -->
+        <div class="main-content">
+          <div class="main-header">
+            <div>
+              <div class="main-header-title">Gestion des produits</div>
+              <div class="main-header-sub">Modifiez vos prix, descriptions et disponibilités</div>
+            </div>
+            <button class="header-btn">＋ Nouveau produit</button>
+          </div>
+
+          <div class="main-body">
+
+            <!-- STATS -->
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-card-top"><span class="stat-card-icon">🛒</span><span class="stat-card-badge badge-up">+2</span></div>
+                <div class="stat-card-num">13</div>
+                <div class="stat-card-lbl">Produits total</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-top"><span class="stat-card-icon">✅</span><span class="stat-card-badge badge-up">9</span></div>
+                <div class="stat-card-num">9</div>
+                <div class="stat-card-lbl">Disponibles</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-top"><span class="stat-card-icon">📦</span><span class="stat-card-badge badge-down">2</span></div>
+                <div class="stat-card-num">2</div>
+                <div class="stat-card-lbl">Sur commande</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-top"><span class="stat-card-icon">❌</span></div>
+                <div class="stat-card-num">2</div>
+                <div class="stat-card-lbl">Non disponibles</div>
+              </div>
+            </div>
+
+            <!-- TABLE PRODUITS -->
+            <div class="section-header">
+              <div class="section-title">Tous les produits</div>
+              <span class="section-action">Filtrer par catégorie ▾</span>
+            </div>
+            <table class="prod-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Produit</th>
+                  <th>Catégorie</th>
+                  <th>Prix</th>
+                  <th>Saison</th>
+                  <th>Disponibilité</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="prod-emoji-cell">🥬</td>
+                  <td class="prod-name-cell">Salade verte</td>
+                  <td><span class="prod-cat-pill pill-legume">Légumes</span></td>
+                  <td><strong>1,50 €</strong></td>
+                  <td>Été</td>
+                  <td><span class="dispo-dot"><span class="dot-green"></span>Disponible</span></td>
+                  <td><div class="action-btns"><button class="btn-edit">✏️ Modifier</button><button class="btn-del">🗑 Suppr.</button></div></td>
+                </tr>
+                <tr>
+                  <td class="prod-emoji-cell">🍅</td>
+                  <td class="prod-name-cell">Tomates variées</td>
+                  <td><span class="prod-cat-pill pill-legume">Légumes</span></td>
+                  <td><strong>2,80 €</strong>/kg</td>
+                  <td>Été</td>
+                  <td><span class="dispo-dot"><span class="dot-green"></span>Disponible</span></td>
+                  <td><div class="action-btns"><button class="btn-edit">✏️ Modifier</button><button class="btn-del">🗑 Suppr.</button></div></td>
+                </tr>
+                <tr>
+                  <td class="prod-emoji-cell">🥕</td>
+                  <td class="prod-name-cell">Carottes</td>
+                  <td><span class="prod-cat-pill pill-legume">Légumes</span></td>
+                  <td><strong>1,50 €</strong></td>
+                  <td>Automne</td>
+                  <td><span class="dispo-dot"><span class="dot-red"></span>Non dispo</span></td>
+                  <td><div class="action-btns"><button class="btn-edit">✏️ Modifier</button><button class="btn-del">🗑 Suppr.</button></div></td>
+                </tr>
+                <tr>
+                  <td class="prod-emoji-cell">🥚</td>
+                  <td class="prod-name-cell">Œufs colorés x6</td>
+                  <td><span class="prod-cat-pill pill-poule">Poules & Œufs</span></td>
+                  <td><strong>3,50 €</strong></td>
+                  <td>Toute saison</td>
+                  <td><span class="dispo-dot"><span class="dot-green"></span>Disponible</span></td>
+                  <td><div class="action-btns"><button class="btn-edit">✏️ Modifier</button><button class="btn-del">🗑 Suppr.</button></div></td>
+                </tr>
+                <tr>
+                  <td class="prod-emoji-cell">🐑</td>
+                  <td class="prod-name-cell">Agneau caissette</td>
+                  <td><span class="prod-cat-pill pill-agneau">Animaux</span></td>
+                  <td><strong>18 €</strong>/kg</td>
+                  <td>Printemps</td>
+                  <td><span class="dispo-dot"><span class="dot-orange"></span>Sur commande</span></td>
+                  <td><div class="action-btns"><button class="btn-edit">✏️ Modifier</button><button class="btn-del">🗑 Suppr.</button></div></td>
+                </tr>
+                <tr>
+                  <td class="prod-emoji-cell">🌭</td>
+                  <td class="prod-name-cell">Saucisses d'agneau</td>
+                  <td><span class="prod-cat-pill pill-agneau">Animaux</span></td>
+                  <td><strong>8 €</strong></td>
+                  <td>Variable</td>
+                  <td><span class="dispo-dot"><span class="dot-green"></span>Disponible</span></td>
+                  <td><div class="action-btns"><button class="btn-edit">✏️ Modifier</button><button class="btn-del">🗑 Suppr.</button></div></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- FORMULAIRE MODIFICATION -->
+            <div class="edit-modal-wrap">
+              <div class="edit-modal-header">
+                <div class="edit-modal-title">✏️ Modifier un produit — Tomates variées</div>
+                <span class="edit-modal-close">✕</span>
+              </div>
+              <div class="edit-modal-body">
+                <div class="edit-form-grid">
+                  <div>
+                    <label class="edit-label">Nom du produit</label>
+                    <input class="edit-input" type="text" value="Tomates variées" />
+                  </div>
+                  <div>
+                    <label class="edit-label">Prix</label>
+                    <input class="edit-input" type="text" value="2,80 €" />
+                  </div>
+                  <div>
+                    <label class="edit-label">Catégorie</label>
+                    <select class="edit-select">
+                      <option selected>🥕 Légumes</option>
+                      <option>🐔 Poules & Œufs</option>
+                      <option>🐑 Animaux</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="edit-label">Disponibilité</label>
+                    <select class="edit-select">
+                      <option selected>✅ Disponible</option>
+                      <option>❌ Non disponible</option>
+                      <option>📦 Sur commande</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="edit-label">Saison</label>
+                    <select class="edit-select">
+                      <option>Printemps</option>
+                      <option selected>Été</option>
+                      <option>Automne</option>
+                      <option>Hiver</option>
+                      <option>Toute saison</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="edit-label">Unité</label>
+                    <input class="edit-input" type="text" value="Au kg" />
+                  </div>
+                  <div class="edit-form-full">
+                    <label class="edit-label">Description</label>
+                    <input class="edit-input" type="text" value="Tomates de différentes variétés, cultivées en bio sans pesticides." />
+                  </div>
+                  <div class="edit-form-full">
+                    <label class="edit-label">Photo (changer l'image)</label>
+                    <input class="edit-input" type="file" style="padding:7px 12px;background:#FAFFFE;" />
+                  </div>
+                </div>
+              </div>
+              <div class="edit-modal-footer">
+                <button class="btn-cancel">Annuler</button>
+                <button class="btn-save">💾 Enregistrer les modifications</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD MOBILE -->
+  <div class="frame-block">
+    <span class="frame-title">📱 Mobile</span>
+    <div class="mobile-frame">
+      <div class="mobile-notch"><div class="notch-pill"></div></div>
+
+      <div class="mob-admin-nav">
+        <span class="mob-admin-logo">🌿 Mitopie Admin</span>
+        <span class="mob-admin-badge">Aurore</span>
+      </div>
+
+      <div class="mob-nav-pills">
+        <span class="mob-nav-pill">🏠 Accueil</span>
+        <span class="mob-nav-pill active">🛒 Produits</span>
+        <span class="mob-nav-pill">🥕 Catégories</span>
+        <span class="mob-nav-pill">📷 Photos</span>
+        <span class="mob-nav-pill">📍 Horaires</span>
+      </div>
+
+      <div class="dashboard mob">
+        <div class="main-content">
+          <div class="main-header mob">
+            <div>
+              <div class="main-header-title">Produits</div>
+              <div class="main-header-sub">Modifiez vos prix</div>
+            </div>
+            <button class="header-btn" style="font-size:11px;padding:7px 12px;">＋ Nouveau</button>
+          </div>
+          <div class="main-body mob">
+
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-card-top"><span class="stat-card-icon">🛒</span></div>
+                <div class="stat-card-num">13</div>
+                <div class="stat-card-lbl">Total</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-top"><span class="stat-card-icon">✅</span></div>
+                <div class="stat-card-num">9</div>
+                <div class="stat-card-lbl">Dispos</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-top"><span class="stat-card-icon">📦</span></div>
+                <div class="stat-card-num">2</div>
+                <div class="stat-card-lbl">Commande</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-top"><span class="stat-card-icon">❌</span></div>
+                <div class="stat-card-num">2</div>
+                <div class="stat-card-lbl">Indispos</div>
+              </div>
+            </div>
+
+            <div class="section-header">
+              <div class="section-title">Produits</div>
+            </div>
+
+            <div class="mini-prod-list">
+              <div class="mini-prod-item">
+                <span class="mini-emoji">🥬</span>
+                <div class="mini-info"><div class="mini-name">Salade verte</div><div class="mini-price">1,50 € · Disponible</div></div>
+                <div class="mini-actions"><span class="mini-btn-edit">✏️</span><span class="mini-btn-del">🗑</span></div>
+              </div>
+              <div class="mini-prod-item">
+                <span class="mini-emoji">🍅</span>
+                <div class="mini-info"><div class="mini-name">Tomates variées</div><div class="mini-price">2,80 €/kg · Disponible</div></div>
+                <div class="mini-actions"><span class="mini-btn-edit">✏️</span><span class="mini-btn-del">🗑</span></div>
+              </div>
+              <div class="mini-prod-item">
+                <span class="mini-emoji">🥚</span>
+                <div class="mini-info"><div class="mini-name">Œufs colorés x6</div><div class="mini-price">3,50 € · Disponible</div></div>
+                <div class="mini-actions"><span class="mini-btn-edit">✏️</span><span class="mini-btn-del">🗑</span></div>
+              </div>
+              <div class="mini-prod-item">
+                <span class="mini-emoji">🐑</span>
+                <div class="mini-info"><div class="mini-name">Agneau caissette</div><div class="mini-price">18 €/kg · Sur commande</div></div>
+                <div class="mini-actions"><span class="mini-btn-edit">✏️</span><span class="mini-btn-del">🗑</span></div>
+              </div>
+              <div class="mini-prod-item">
+                <span class="mini-emoji">🌭</span>
+                <div class="mini-info"><div class="mini-name">Saucisses agneau</div><div class="mini-price">8 € · Disponible</div></div>
+                <div class="mini-actions"><span class="mini-btn-edit">✏️</span><span class="mini-btn-del">🗑</span></div>
+              </div>
+            </div>
+
+            <div class="edit-modal-wrap" style="margin-top:14px;">
+              <div class="edit-modal-header">
+                <div class="edit-modal-title">✏️ Modifier — Tomates</div>
+                <span class="edit-modal-close">✕</span>
+              </div>
+              <div class="edit-modal-body">
+                <div class="edit-form-grid">
+                  <div>
+                    <label class="edit-label">Nom</label>
+                    <input class="edit-input" type="text" value="Tomates variées" />
+                  </div>
+                  <div>
+                    <label class="edit-label">Prix</label>
+                    <input class="edit-input" type="text" value="2,80 €" />
+                  </div>
+                  <div>
+                    <label class="edit-label">Disponibilité</label>
+                    <select class="edit-select"><option selected>✅ Disponible</option><option>❌ Non dispo</option><option>📦 Commande</option></select>
+                  </div>
+                  <div>
+                    <label class="edit-label">Saison</label>
+                    <select class="edit-select"><option selected>Été</option><option>Automne</option><option>Hiver</option><option>Printemps</option></select>
+                  </div>
+                </div>
+              </div>
+              <div class="edit-modal-footer">
+                <button class="btn-cancel" style="font-size:11px;padding:7px 14px;">Annuler</button>
+                <button class="btn-save" style="font-size:11px;padding:7px 14px;">💾 Enregistrer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
