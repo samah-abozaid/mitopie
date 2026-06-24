@@ -98,11 +98,27 @@ INSERT INTO users (nom, email, password_hash, role) VALUES
  '$2y$12$placeholder_change_this_with_php_password_hash',
  'admin');
 
+-- ------------------------------------------------------------
+-- TABLE : reservations
+-- ------------------------------------------------------------
+CREATE TABLE reservations (
+    id           INT AUTO_INCREMENT PRIMARY KEY,
+    nom          VARCHAR(100)  NOT NULL,
+    email        VARCHAR(150)  NOT NULL,
+    telephone    VARCHAR(20)   DEFAULT NULL,
+    date_retrait DATE          NOT NULL,
+    message      TEXT          DEFAULT NULL,
+    statut       ENUM('en_attente','confirme','annule') DEFAULT 'en_attente',
+    created_at   DATETIME      DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- ============================================================
 -- VÉRIFICATION : afficher les tables créées
 -- ============================================================
-SELECT 'categories' AS table_name, COUNT(*) AS nb_lignes FROM categories
+SELECT 'categories'   AS table_name, COUNT(*) AS nb_lignes FROM categories
 UNION ALL
-SELECT 'products',  COUNT(*) FROM products
+SELECT 'products',    COUNT(*) FROM products
 UNION ALL
-SELECT 'users',     COUNT(*) FROM users;
+SELECT 'users',       COUNT(*) FROM users
+UNION ALL
+SELECT 'reservations',COUNT(*) FROM reservations;

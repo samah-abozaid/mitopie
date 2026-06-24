@@ -5,11 +5,12 @@ class Router
 {
     // Maps ?page= values to their controller class and default action
     private array $routes = [
-        'accueil'  => ['controller' => 'controllers\HomeController',    'default' => 'index'],
-        'produits' => ['controller' => 'controllers\ProductController', 'default' => 'index'],
-        'histoire' => ['controller' => 'controllers\AboutController',   'default' => 'index'],
-        'trouver'  => ['controller' => 'controllers\ContactController', 'default' => 'index'],
-        'admin'    => ['controller' => 'controllers\AdminController',   'default' => 'login'],
+        'accueil'     => ['controller' => 'controllers\HomeController',        'default' => 'index'],
+        'produits'    => ['controller' => 'controllers\ProductController',     'default' => 'index'],
+        'histoire'    => ['controller' => 'controllers\AboutController',       'default' => 'index'],
+        'trouver'     => ['controller' => 'controllers\ContactController',     'default' => 'index'],
+        'reservation' => ['controller' => 'controllers\ReservationController', 'default' => 'index'],
+        'admin'       => ['controller' => 'controllers\AdminController',       'default' => 'login'],
     ];
 
     public function dispatch(): void

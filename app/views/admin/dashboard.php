@@ -29,11 +29,15 @@
     </div>
     <div class="stat-card">
       <div class="stat-card-top">
-        <span class="stat-card-icon">📍</span>
-        <span class="stat-card-badge badge-up">Ouvert</span>
+        <span class="stat-card-icon">📅</span>
+        <?php if ($nbReservations > 0): ?>
+          <span class="stat-card-badge" style="background:#FFF3E0;color:#E65100;">En attente</span>
+        <?php else: ?>
+          <span class="stat-card-badge badge-up">OK</span>
+        <?php endif; ?>
       </div>
-      <div class="stat-card-num">3</div>
-      <div class="stat-card-lbl">Points de vente</div>
+      <div class="stat-card-num"><?= $nbReservations ?></div>
+      <div class="stat-card-lbl">Réservations en attente</div>
     </div>
   </div>
 
@@ -44,6 +48,7 @@
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
     <a href="<?= url('admin', 'produits') ?>" class="header-btn" style="text-decoration:none;">📋 Gérer les produits</a>
     <a href="<?= url('admin', 'createProduct') ?>" class="header-btn" style="text-decoration:none;background:var(--g3);">➕ Ajouter un produit</a>
+    <a href="<?= url('admin', 'reservations') ?>" class="header-btn" style="text-decoration:none;background:#5C6BC0;">📅 Réservations</a>
     <a href="<?= url() ?>" class="header-btn" style="text-decoration:none;background:#555;" target="_blank">🌐 Voir le site</a>
   </div>
 

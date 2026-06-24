@@ -1,6 +1,8 @@
 <?php
 namespace controllers;
 
+use core\Mailer;
+
 class ContactController
 {
     public function index(): void
@@ -14,8 +16,12 @@ class ContactController
             $message = trim($_POST['message'] ?? '');
 
             if ($nom && $email && $message && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                // TODO: send email with mail() or a library
-                $success = true;
+                $mailer = new Mailer();
+                if ($mailer->sendContact($nom, $email, $message)) {
+                    $success = true;
+                } else {
+                    $error = 'Erreur lors de l\'envoi. Veuillez réessayer ou nous appeler directement.';
+                }
             } else {
                 $error = 'Veuillez remplir tous les champs correctement.';
             }

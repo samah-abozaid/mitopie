@@ -4,6 +4,8 @@ namespace controllers;
 use managers\UserManager;
 use managers\ProductManager;
 use managers\CategoryManager;
+use managers\ReservationManager;
+use core\Mailer;
 
 class AdminController
 {
@@ -51,15 +53,83 @@ class AdminController
     {
         requireAdmin();
 
-        $productManager  = new ProductManager();
-        $categoryManager = new CategoryManager();
+        $productManager     = new ProductManager();
+        $categoryManager    = new CategoryManager();
+        $reservationManager = new ReservationManager();
 
         render('admin/dashboard', [
-            'title'        => 'Tableau de bord — Administration',
-            'activePage'   => 'dashboard',
-            'nbProduits'   => $productManager->count(),
-            'nbCategories' => $categoryManager->count(),
+            'title'           => 'Tableau de bord — Administration',
+            'activePage'      => 'dashboard',
+            'nbProduits'      => $productManager->count(),
+            'nbCategories'    => $categoryManager->count(),
+            'nbReservations'  => $reservationManager->countByStatut('en_attente'),
         ]);
+    }
+
+    // ── Reservations ──────────────────────────────────────
+
+    public function reservations(): void
+    {
+        requireAdmin();
+
+        $manager = new ReservationManager();
+
+        render('admin/reservations/index', [
+            'title'        => 'Réservations — Administration',
+            'activePage'   => 'reservations',
+            'pageHeading'  => 'Réservations',
+            'pageSubtitle' => 'Gérez les demandes de réservation',
+            'reservations' => $manager->getAll(),
+            'nbEnAttente'  => $manager->countByStatut('en_attente'),
+            'nbConfirme'   => $manager->countByStatut('confirme'),
+            'nbAnnule'     => $manager->countByStatut('annule'),
+        ]);
+    }
+
+    public function confirmReservation(): void
+    {
+        requireAdmin();
+
+        $id = (int) ($_GET['id'] ?? 0);
+        if ($id) {
+            $manager     = new ReservationManager();
+            $reservation = $manager->getById($id);
+            $manager->updateStatut($id, 'confirme');
+
+            if ($reservation) {
+                $mailer = new Mailer();
+                $mailer->sendReservationConfirmation([
+                    'nom'          => $reservation->nom,
+                    'email'        => $reservation->email,
+                    'date_retrait' => date('d/m/Y', strtotime($reservation->date_retrait)),
+                ]);
+            }
+        }
+        redirect('admin', 'reservations');
+    }
+
+    public function cancelReservation(): void
+    {
+        requireAdmin();
+
+        $id = (int) ($_GET['id'] ?? 0);
+        if ($id) {
+            $manager = new ReservationManager();
+            $manager->updateStatut($id, 'annule');
+        }
+        redirect('admin', 'reservations');
+    }
+
+    public function deleteReservation(): void
+    {
+        requireAdmin();
+
+        $id = (int) ($_GET['id'] ?? 0);
+        if ($id) {
+            $manager = new ReservationManager();
+            $manager->delete($id);
+        }
+        redirect('admin', 'reservations');
     }
 
     // ── Products CRUD ─────────────────────────────────────

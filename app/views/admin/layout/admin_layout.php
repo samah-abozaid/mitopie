@@ -36,6 +36,9 @@
     <a href="<?= url('admin', 'createProduct') ?>" class="sidebar-item">
       <span class="sidebar-icon">➕</span> Ajouter un produit
     </a>
+    <a href="<?= url('admin', 'reservations') ?>" class="sidebar-item <?= ($activePage ?? '') === 'reservations' ? 'active' : '' ?>">
+      <span class="sidebar-icon">📅</span> Réservations
+    </a>
 
     <div class="sidebar-section-label">Site</div>
     <a href="<?= url() ?>" target="_blank" class="sidebar-item">

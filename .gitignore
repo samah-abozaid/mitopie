@@ -1,5 +1,6 @@
 # Credentials & config local
 config/database.php
+config/mail.php
 scripts/create_admin.php
 
 # Dependencies
